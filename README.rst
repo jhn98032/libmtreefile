@@ -12,18 +12,23 @@ Build and install
 
 libzip and doxygen is needed for building:
 
+.. code-block:: bash
+
     sudo apt install libzip-dev
     sudo apt install doxygen
 
 Run:
 
+.. code-block:: bash
+
     ./configure
 
 Followed by:
 
+.. code-block:: bash
+
     make
     make install
-
 
 
 Usage instructions
@@ -31,10 +36,14 @@ Usage instructions
 
 To use add the following to the .pro file in your application:
 
+.. code-block:: bash
+
   QMAKE_CXXFLAGS+=`libmtreefile-config --cflags`
   LIBS+=`libmtreefile-config --ldflags`
 
 Then include in your application:
+
+.. code-block:: c
 
   <mtreefile/mtreefile.h>
 
@@ -47,9 +56,5 @@ Author
 ======
 
 Written by Johan Henriksson (johan[a]dexar.se)
-
-
-
-
 
 
