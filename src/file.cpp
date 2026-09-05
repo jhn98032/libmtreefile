@@ -38,7 +38,7 @@ int PhysicalFile::open(QString filename, bool readOnly)
     if(readOnly)
         m_fd = ::open(qPrintable(filename), O_RDONLY);
     else
-        m_fd= ::open(qPrintable(filename), O_RDWR | O_CREAT);
+        m_fd= ::open(qPrintable(filename), O_RDWR | O_CREAT, S_IRUSR | S_IWUSR);
     if (m_fd < 0)
     {
         perror("Error opening file");
