@@ -33,7 +33,13 @@ To use add the following to the .pro file in your application:
   QMAKE_CXXFLAGS+=`libmtreefile-config --cflags`
   LIBS+=`libmtreefile-config --ldflags`
 
+Then include in your application:
 
+  <mtreefile/mtreefile.h>
+
+API documentation exists in:
+
+  /usr/local/docs/libmqtutil/html/index.html
 
 
 Author
