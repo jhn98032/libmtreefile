@@ -10,9 +10,10 @@ It can be used for storing structured application data.
 Build and install
 =================
 
-libzip is needed for building:
+libzip and doxygen is needed for building:
 
     sudo apt install libzip-dev
+    sudo apt install doxygen
 
 Run:
 
