@@ -7,8 +7,8 @@ entries with data.
 
 It can be used for storing structured application data.
 
-Building
-========
+Build and install
+=================
 
 libzip is needed for building:
 
@@ -28,10 +28,10 @@ Followed by:
 Usage instructions
 ==================
 
-To use add the following to the pro file:
+To use add the following to the .pro file in your application:
 
-  QMAKE_CXXFLAGS+=`libmqtutil-config --cflags`
-  LIBS+=`libmqtutil-config --ldflags`
+  QMAKE_CXXFLAGS+=`libmtreefile-config --cflags`
+  LIBS+=`libmtreefile-config --ldflags`
 
 
 
