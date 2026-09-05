@@ -1,0 +1,8 @@
+*.o
+*.pro.user
+moc_*.cpp
+moc_*.h
+ui_*.h
+qrc_*
+src/example
+

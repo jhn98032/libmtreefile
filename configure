@@ -1,0 +1,71 @@
+#!/usr/bin/env python3
+#
+# Written by Johan Henriksson. Copyright (C) 2014-2021.
+#
+import sys
+import os
+import subprocess
+import shutil
+from sys import platform
+import argparse
+
+
+
+
+def main(argv):
+    parser = argparse.ArgumentParser(description="Configures the build")
+    parser.add_argument("--prefix", help="Install directory", required=False, default="/usr/local")
+    parser.add_argument("--os", help="Choose OS. Can either be linux or win32", required=False, default="linux")
+    parser.add_argument("--debug", help="Debug build", required=False,     action='store_true')
+    parser.add_argument("--release", help="Release build", required=False,     action='store_true')
+    args = parser.parse_args()
+
+    if args.release:
+        mode = "release"
+    else:
+        mode = "debug"
+    
+    # Patch config script with the prefix
+    #arg_list = ["sed",
+    #            "s+^prefix=.*+prefix=%s+" % (args.prefix),
+    #            "libmqtutil-config.in"]
+    #result = subprocess.run(arg_list, capture_output=True, text=True)
+    #with open("libmqtutil-config", 'w') as file:
+    #        file.write(result.stdout)
+    #os.chmod("libmqtutil-config", 0o755)
+    
+    # Generate makefile.local
+    filename = "makefile.local"
+    with open(filename, 'w') as file:
+        file.write("# Makefile created by configure\n")
+        file.write("PREFIX=" + args.prefix + "\n")
+        file.write("\n")
+
+        
+        file.write("MODE=%s\n" % (mode))
+        if mode == "debug":
+            file.write("CFLAGS+=-g\n")
+            file.write("CXXFLAGS+=-g\n")
+        else:
+            file.write("CFLAGS+=-O2 -fomit-frame-pointer -DNDEBUG \n")
+            file.write("CXXFLAGS+=-O2 -fomit-frame-pointer -DNDEBUG \n")
+        if args.os == "linux":
+            file.write("CFLAGS+=   -DLINUX\n")
+            file.write("CXXFLAGS+= -DLINUX\n")
+
+        file.write("HOST=%s\n" % (args.os))
+        file.write("\n")
+        file.write("RANLIB?=ranlib\n")
+        file.write("\n")
+
+
+    print("Program will be installed to: " + args.prefix)
+        
+# Main entry
+if __name__ == "__main__":
+    try:
+        main(sys.argv)
+    except Exception as e:
+        print("Error occured: " + str(e))
+        raise
+

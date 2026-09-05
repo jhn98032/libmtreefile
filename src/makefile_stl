@@ -1,0 +1,80 @@
+TOPDIR=../
+DESTDIR=../dist
+include $(TOPDIR)/makefile.defs
+include $(TOPDIR)/makefile.local
+
+CXXFLAGS+=-Wall -Wextra
+CXXFLAGS+=-fPIC
+CXXFLAGS+= -DCPPXTRA_BUILD -I. -I/sys/include -I../utilsrc -I$(PREFIX)/include 
+CXXFLAGS+= -DLIB_MAJOR=$(LIB_MAJOR) -DLIB_MINOR=$(LIB_MINOR) -DLIB_PATCH=$(LIB_PATCH)
+OBJ=mtreefile.o
+
+PROGRAMS=
+
+
+all:  static	dynamic $(PROGRAMS)
+
+run_tests: $(PROGRAMS)
+	@echo
+	@echo "--Running tests--"
+	@for i in $(PROGRAMS); do \
+	  ./$$i || exit 1; \
+	  done
+
+
+dynamic: $(LIB_NAME).so.$(LIB_MAJOR)
+static: $(LIB_NAME).a
+
+HDRFILES=mtreefile.h
+
+
+test_stringvector: stringvector.cpp
+	$(CXX) -o $@ $^ -DTEST_PROGRAM
+
+test_inttosizestring: inttosizestring.cpp
+	$(CXX) -o $@ $^ -DTEST_PROGRAM
+
+test_stringextra: stringextra.cpp
+	$(CXX) -o $@ $^ -DTEST_PROGRAM
+
+
+
+$(LIB_NAME).so.$(LIB_MAJOR): $(OBJ)
+	rm -f $(LIB_NAME).so*
+	$(CXX) -shared -Wl,-soname,$(LIB_NAME).so.$(LIB_MAJOR) \
+	       -o $(LIB_NAME).so.$(LIB_MAJOR).$(LIB_MINOR).$(LIB_PATCH)  $(OBJ) $(LDFLAGS)
+	ln -s $(LIB_NAME).so.$(LIB_MAJOR).$(LIB_MINOR).$(LIB_PATCH) $(LIB_NAME).so.$(LIB_MAJOR)
+	ln -s $(LIB_NAME).so.$(LIB_MAJOR) $(LIB_NAME).so
+	mkdir -p $(TOPDIR)/dist/lib
+	cp -af  $(LIB_NAME).so* $(TOPDIR)/dist/lib
+
+
+$(LIB_NAME).a: $(OBJ) 
+	rm -f $(LIB_NAME).a
+	$(AR) rc $(LIB_NAME).a $(OBJ)
+	$(RANLIB) $(LIB_NAME).a
+	mkdir -p $(TOPDIR)/dist/lib
+	cp -af $(LIB_NAME).a $(TOPDIR)/dist/lib
+
+install: all 
+#	rm -f /usr/local/lib/$(LIB_NAME)*
+#	cp -dv $(LIB_NAME)* /usr/local/lib
+#	cp mtreefile.h /usr/local/include/mtreefile
+	mkdir -p $(DESTDIR)/lib $(DESTDIR)/include/mtreefile
+	cp -f $(HDRFILES)  $(DESTDIR)/include/mtreefile
+#	cp -f $(LIB_NAME).a $(LIB_NAME).* $(DESTDIR)/lib
+
+clean:	
+	rm -f $(LIB_NAME)* *.o *.a
+	rm -f mtreefile/*.o
+	rm -f $(PROGRAMS)
+
+distclean:
+	@make clean
+	rm -f *~
+	rm -f mtreefile/*~
+
+
+.PHONY: dynamic clean distclean
+
+

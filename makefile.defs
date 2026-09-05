@@ -1,0 +1,14 @@
+LIB_MAJOR=1
+LIB_MINOR=0
+LIB_PATCH=1
+
+LIB_NAME=libmtreefile
+
+#CXXFLAGS+=-ansi
+# -fno-rtti -g -Wall
+
+
+# The destination directory
+PREFIX?=/usr/local
+
+
