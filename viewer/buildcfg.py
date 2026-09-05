@@ -18,9 +18,6 @@ g_qmakeQt6 = ""
 g_testDirs = [
             ]
 g_mainSrcDir = ["./src" ]
-if platform == "darwin":
-    g_requiredPrograms = ["make", "clang", "ctags" ]
-else:
-    g_requiredPrograms = ["make", "gcc", "ctags" ]
+g_requiredPrograms = ["make", "gcc"  ]
 MIN_QT_VER = "5.0.0"
 #-----------------------------#
