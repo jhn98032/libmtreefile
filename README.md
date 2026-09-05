@@ -11,6 +11,25 @@ libzip is needed for building:
 
     sudo apt install libzip-dev
 
+Run:
+
+    ./configure
+
+Followed by:
+
+    make
+    make install
+
+
+
+# Usage instructions
+
+To use add the following to the pro file:
+
+  QMAKE_CXXFLAGS+=`libmqtutil-config --cflags`
+  LIBS+=`libmqtutil-config --ldflags`
+
+
 
 # File format
 
@@ -41,6 +60,9 @@ Types are:
 - 'VEC '
 
 
+# Author
+
+Written by Johan Henriksson (johan[a]dexar.se)
 
 
 
