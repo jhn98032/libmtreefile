@@ -29,11 +29,19 @@ jobs:
           doxygen \
           graphviz
 
+    - name: Checkout and build libmqtutil
+      run: |
+        git clone https://github.com/jhn98032/libmqtutil ../libmqtutil
+        cd ../libmqtutil
+        ./configure --prefix=/usr/local
+        make -j$(nproc)
+        sudo make install
+        sudo ldconfig
 
     - name: Configure build with Qt paths
       run: |
-        # Set PKG_CONFIG_PATH so pkg-config finds Qt modules
-        export PKG_CONFIG_PATH=/usr/lib/x86_64-linux-gnu/pkgconfig:$PKG_CONFIG_PATH
+        # Set PKG_CONFIG_PATH so ./configure finds both Qt5 and lib2
+        export PKG_CONFIG_PATH=/usr/local/lib/pkgconfig:/usr/lib/x86_64-linux-gnu/pkgconfig:$PKG_CONFIG_PATH
         ./configure --prefix=/usr/local
 
     - name: Compile library
