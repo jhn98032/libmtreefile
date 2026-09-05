@@ -1,8 +1,22 @@
 *.o
-*.pro.user
+src/libmqtreefile.a
+viewer/src/mtreefileviewer
+
 moc_*.cpp
 moc_*.h
 ui_*.h
 qrc_*
-src/example
+*.pro.user
+src/.qmake.stash
+src/Makefile
+tests/.qmake.stash
+tests/Makefile
+viewer/src/.qmake.stash
+viewer/src/Makefile
+
+__pycache__
+dist
+makefile.local
+
+docs/doxydoc
 
