@@ -1,11 +1,14 @@
-# Introduction
+============
+Introduction
+============
 
 This is a library for operating on binary files that contains a tree of
 entries with data.
 
 It can be used for storing structured application data.
 
-# Building
+Building
+========
 
 libzip is needed for building:
 
@@ -22,7 +25,8 @@ Followed by:
 
 
 
-# Usage instructions
+Usage instructions
+==================
 
 To use add the following to the pro file:
 
@@ -31,7 +35,8 @@ To use add the following to the pro file:
 
 
 
-# File format
+File format
+===========
 
 The file consist of entries.
 
@@ -60,7 +65,8 @@ Types are:
 - 'VEC '
 
 
-# Author
+Author
+======
 
 Written by Johan Henriksson (johan[a]dexar.se)
 
