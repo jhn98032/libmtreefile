@@ -17,6 +17,8 @@ namespace mtreefile
 
 mtreefile is a library for storing data in binary files which can be compressed.
 
+It contains of these classes and functions:
+
 - @ref MQTreeFile
 - @ref MQTreeFileDirNode
 - MQTreeFileEntryNode
