@@ -17,7 +17,7 @@ all: src/Makefile dist/bin/libmtreefile-config
 	cp -f viewer/src/mtreefileviewer dist/bin/
 
 src/Makefile: src/treefile.pro
-	cd src && qmake
+	cd src && qmake6
 
 
 
@@ -63,7 +63,7 @@ distclean:
 	chmod a+rx libmtreefile-config
 	rm -fR dist
 	rm -fR viewer/__pycache__
-	rm -fR src/.qmake.stash
+	rm -fR src/.qmake6.stash
 
 
 
